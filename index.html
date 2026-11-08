@@ -2,6 +2,9 @@
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>가대 공간 어디가지</title>
+<meta name="description" content="가톨릭대 교내 공부·휴식 공간의 운영시간, 콘센트, 음식 가능 여부를 한눈에">
+<meta property="og:title" content="가대 공간 어디가지">
+<meta property="og:description" content="지금 열려 있는 교내 공간, 콘센트·음식·소음 조건으로 찾아보세요">
 <link rel="icon" href="images/sheep/plain.svg">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
@@ -21,14 +24,12 @@
   [hidden]{display:none!important}
   .wrap{max-width:560px;margin:0 auto}
 
-  /* 헤더 */
   header{padding:24px 0 0}
   h1{display:flex;align-items:center;gap:8px;font-family:"Jua","Pretendard Variable",sans-serif;font-size:29px;font-weight:400;
     margin:0 0 14px;letter-spacing:-.5px;line-height:1.1;color:var(--brand)}
   h1 img{width:42px;height:40px;margin:-4px 0 -2px -4px}
   .lead{font-size:13.5px;color:var(--sub);margin:0 0 18px}
 
-  /* 언제 갈 거예요 */
   .when{background:var(--card);border-radius:6px;padding:12px 14px;box-shadow:var(--sh)}
   .when-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .when-label{font-size:12px;font-weight:700;color:var(--sub)}
@@ -41,7 +42,6 @@
   .pick{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:6px;margin-top:10px}
   .pick select{width:100%;border:1px solid var(--line2);border-radius:4px;background:#fff;padding:9px 8px;font-size:14px;font-weight:600}
 
-  /* 미니 캠퍼스 무대 (하늘 · 건물 · 양 · 말풍선) */
   .stage{position:relative;margin-top:10px;height:152px;border-radius:6px;overflow:hidden;box-shadow:var(--sh);
     background:linear-gradient(#cfe6fb,#eef6ff 70%);transition:background .6s}
   .stage.sunset{background:linear-gradient(#f6b67a,#fbe2c4 70%)}
@@ -66,6 +66,10 @@
   .stage .bld.on .lbl{fill:#22252b}
   .stage.night .lbl{fill:#4a4235}
   .stage .tree{fill:#9cc47a}
+  .stage .hint-t{font-size:9.5px;font-weight:800;fill:var(--brand);font-family:inherit}
+  .stage .bob{animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-3px)}}
+  @media (prefers-reduced-motion:reduce){.stage .bob{animation:none}}
   .stage.night .tree{fill:#6f8f5a}
   #sheepG{transition:transform .9s cubic-bezier(.45,.05,.4,1)}
   #sheepG.hop image{animation:hop .3s ease-in-out 3}
@@ -81,22 +85,12 @@
   .empty img{width:110px;display:block;margin:0 auto 6px}
   .empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
 
-  /* 무대 밑 한 줄: 지금 어떤 건물을 보고 있는지 */
   .picked{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:0 2px;font-size:13px;color:var(--sub);min-height:28px}
   .picked b{color:var(--ink);font-weight:800}
   .picked .allbtn{border:1px solid var(--line2);background:var(--card);border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:700;color:var(--brand)}
 
-  /* 건물 탭 (지금은 안 씀) */
-  .groups{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-  .gbtn{border:1px solid var(--line2);background:var(--card);border-radius:4px;padding:6px 10px;font-size:13.5px;font-weight:700;color:var(--sub)}
-  .gbtn small{font-size:12px;font-weight:600;color:var(--mute);margin-left:4px}
-  .gbtn.on{border-color:var(--brand);background:var(--brand);color:#fff}
-  .gbtn.on small{color:#c4cff0}
-
-  /* 추천 · 조건 */
   .sec-label{font-size:13px;font-weight:800;color:var(--ink);margin:16px 0 8px;display:flex;justify-content:space-between;align-items:center}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
-  /* 추천 버튼: 핸드폰에선 한 줄 + 옆으로 밀기, PC에선 그냥 한 줄 */
   .chips.presets{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none}
   .chips.presets::-webkit-scrollbar{display:none}
   .chips.presets .chip{flex:none}
@@ -105,16 +99,15 @@
   .chip.preset{border-color:transparent;color:var(--brand);background:var(--brand-soft);font-weight:700}
   .chip.preset[aria-pressed=true]{background:var(--brand);color:#fff}
   .linkbtn{border:0;background:none;color:var(--brand);font-size:13px;font-weight:700;padding:0}
-  .morebtn{margin-top:10px}
+  .fgroup{margin-bottom:12px}
+  .fgroup-h{font-size:12px;font-weight:700;color:var(--mute);margin-bottom:6px}
 
-  /* 결과 */
   .summary{margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--sub)}
   .notice{background:var(--soon-soft);color:#7a4500;border-radius:4px;padding:11px 13px;font-size:13.5px;margin:22px 0 10px}
   .group-h{display:flex;align-items:baseline;gap:8px;margin:24px 0 10px}
   .group-h b{font-size:21px;font-weight:800;letter-spacing:-.5px}
   .group-h span{font-size:13px;color:var(--mute);font-weight:600}
 
-  /* 카드 */
   .card{background:var(--card);border-radius:6px;margin-bottom:14px;overflow:hidden;box-shadow:var(--sh)}
   .ph{position:relative}
   .photo{display:block;width:100%;height:180px;object-fit:cover;background:#ece5d6}
@@ -143,7 +136,6 @@
   .s-before b,.s-before .dot{color:var(--brand)}
   .s-closed b,.s-closed .dot{color:var(--closed)}
   .s-unknown b,.s-unknown .dot{color:var(--mute)}
-  .crowd{font-size:12.5px;color:var(--soon);margin-top:4px}
   .match{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
   .m{font-size:12px;padding:3px 8px;border-radius:3px;font-weight:600}
   .m.ok{background:var(--open-soft);color:var(--open)}
@@ -156,9 +148,9 @@
   .tag.warn{background:var(--warn-bg);color:var(--warn-ink)}
   .more{display:block;margin-top:12px;width:100%;border:0;border-top:1px solid var(--line);background:none;padding:10px 0 0;font-size:13px;font-weight:700;color:var(--sub);text-align:left}
 
-  /* 상세 (자세히 보기) */
   .detail{margin-top:12px;font-size:14px}
-  .dsec{margin-bottom:18px}
+  .dsec{margin-bottom:14px}
+  .dsec.box{border:1px solid var(--line2);border-radius:6px;padding:11px 13px 10px}
   .dsec h4{font-size:13px;font-weight:800;margin:0 0 8px;color:var(--ink)}
   .htabs{display:flex;gap:4px;margin-bottom:8px}
   .htab{border:1px solid var(--line2);background:#fff;border-radius:3px;padding:4px 9px;font-size:12.5px;font-weight:600;color:var(--sub)}
@@ -187,14 +179,23 @@
   ul.notes ul li::before{content:"– "}
   .unk-line{font-size:12.5px;color:var(--sub);background:var(--unk-soft);border-radius:3px;padding:8px 10px;margin-bottom:12px}
   .dfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--mute);border-top:1px solid var(--line);padding-top:10px}
-  .report{border:0;background:none;color:var(--closed);font-weight:700;font-size:12.5px;padding:0;flex:none}
+  .fix-hint{flex:none;font-size:12px;color:var(--sub);font-weight:600}
 
-  /* 푸터 */
+  .survey{display:flex;align-items:center;gap:12px;margin-top:28px;background:var(--brand-soft);border-radius:6px;padding:14px}
+  .survey img{width:46px;flex:none}
+  .survey div{flex:1;min-width:0}
+  .survey b{display:block;font-size:14.5px;font-weight:800;letter-spacing:-.3px}
+  .survey small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
+  .sbtn{flex:none;background:var(--brand);color:#fff;text-decoration:none;font-weight:800;font-size:13.5px;padding:9px 14px;border-radius:4px}
+  .stop{display:flex;align-items:center;gap:10px;margin:0 0 12px;background:var(--brand);color:#fff;border-radius:6px;padding:10px 10px 10px 14px}
+  .stop span{flex:1;min-width:0;font-size:13px;line-height:1.4}
+  .stop span b{display:block;font-size:14px;font-weight:800}
+  .stop .sbtn{background:#ffd166;color:var(--ink);padding:8px 12px}
+
   footer{margin-top:36px;padding:16px 0 0;border-top:1px solid var(--line2);font-size:12px;color:var(--mute)}
   footer p{margin:0 0 6px}
   footer b{color:var(--sub)}
 
-  /* PC 화면 (폭 820px 이상): 카드 2열 */
   @media(min-width:820px){
     .wrap{max-width:960px}
     #list{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
@@ -204,25 +205,14 @@
     .summary{margin-bottom:0}
     .photo{height:200px}
   }
-
-  /* 제보 모달 */
-  .modal-bg{position:fixed;inset:0;background:rgba(15,18,25,.5);display:flex;align-items:flex-end;justify-content:center;z-index:20}
-  .modal{background:#fff;width:100%;max-width:560px;border-radius:6px 6px 0 0;padding:20px 18px 24px;max-height:90vh;overflow:auto}
-  @media(min-width:600px){.modal-bg{align-items:center}.modal{border-radius:6px}}
-  .modal h2{font-size:19px;margin:0 0 2px;font-weight:900}
-  .msub{font-size:13px;color:var(--sub);margin:0 0 14px}
-  .modal textarea{width:100%;border:1px solid var(--line2);border-radius:4px;padding:10px;font:inherit;font-size:14px;resize:vertical}
-  .mbtns{display:flex;gap:6px;margin-top:14px}
-  .btn{flex:1;border:1px solid var(--line2);border-radius:4px;padding:12px;font-weight:800;font-size:14px}
-  .btn.ghost{background:#fff;color:var(--tag-ink)}
-  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
-  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:4px;
-    font-size:13px;opacity:0;transition:.25s;z-index:30;max-width:calc(100% - 32px);text-align:center;pointer-events:none}
-  .toast.show{opacity:1;transform:translate(-50%,0)}
 </style></head><body>
 <div class="wrap">
   <header>
     <h1><img src="images/sheep/plain.svg" alt="">가대 공간 어디가지</h1>
+    <div class="stop" id="surveyTop" hidden>
+      <span><b>둘러보고 느낀 점을 바로 알려주세요!</b><span class="sSub"></span></span>
+      <a class="sbtn" data-survey target="_blank" rel="noopener">설문하기</a>
+    </div>
     <div class="when">
       <div class="when-top">
         <div><div class="when-label">언제 갈 거예요?</div><div class="now-line" id="nowLine"></div></div>
@@ -246,48 +236,36 @@
   <div class="chips presets" id="presets"></div>
   <div id="filterBox" hidden>
     <div class="sec-label"><span>조건 고르기</span><button class="linkbtn" id="resetFilters" hidden>초기화</button></div>
-    <div class="chips" id="filters"></div>
+    <div id="filters"></div>
   </div>
 
   <div id="list"></div>
 
+  <section class="survey" id="surveyBox" hidden>
+    <img src="images/sheep/plain.svg" alt="">
+    <div><b>다 둘러봤다면, 1분만!</b><small class="sSub"></small></div>
+    <a class="sbtn" data-survey target="_blank" rel="noopener">설문하기</a>
+  </section>
+
   <footer>
     <p><b>운영시간 기준</b> · <span id="fPeriods"></span></p>
     <p>'이용 가능'은 운영시간 기준이에요. 실제 빈자리를 뜻하지는 않아요.</p>
-    <p>공간마다 출처와 확인 날짜가 달라요. 각 공간의 <b>상세 정보</b> 맨 아래에서 볼 수 있어요.</p>
-    <p>정보가 실제와 다르면 <b>상세 정보 → 정보 오류 제보</b>를 눌러주세요.</p>
+    <p>공간마다 출처와 확인 날짜가 달라요. 각 공간의 <b>자세히 보기</b> 맨 아래에서 볼 수 있어요.</p>
+    <p id="fReport">저희 팀이 직접 조사한 정보라 실제와 다를 수 있어요. 다르면 <b>에타 게시글 댓글</b>로 알려주세요. 확인해서 바로 고칠게요!</p>
     <p>'–'로 표시된 항목은 아직 확인되지 않은 정보예요.</p>
     <p>일부 사진 출처: 가톨릭대학교 홈페이지</p>
   </footer>
 </div>
 
-<div class="modal-bg" id="modalBg" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
-    <h2 id="mTitle">정보 오류 제보</h2>
-    <p class="msub" id="mPlace"></p>
-    <div class="dh">어떤 정보가 다른가요?</div>
-    <div class="chips" id="mTypes"></div>
-    <div class="dh" style="margin-top:14px">자세히 알려주세요</div>
-    <textarea id="mText" rows="4" placeholder="예) 토요일에도 열어요 / 콘센트가 창가 쪽에만 있어요"></textarea>
-    <div class="mbtns"><button class="btn ghost" data-close>취소</button><button class="btn primary" id="mSubmit">제보하기</button></div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
-
 <script>
-/* =========================================================
-   ① 설정 — 학사일정 · 공휴일 · 제보 폼
-   ========================================================= */
-// 운영 모드 기간. 여기 없는 날짜는 DEFAULT_MODE로 계산돼.
 const PERIODS = [
   { mode: "semester", from: "2026-09-01", to: "2026-12-13" },
   { mode: "exam",     from: "2026-12-14", to: "2026-12-18" },
-  { mode: "vacation", from: "2026-12-19", to: "2027-03-01" },   // 12/19~20(시험 끝난 주말)도 방학으로 처리
+  { mode: "vacation", from: "2026-12-19", to: "2027-03-01" },
 ];
 const DEFAULT_MODE = "semester";
 const MODES = { semester: "학기 중", exam: "시험기간", vacation: "방학" };
 
-// 공휴일 — 이 날은 요일과 상관없이 '공휴일' 운영시간을 써
 const HOLIDAYS = {
   "2026-12-25": "성탄절",
   "2027-01-01": "신정",
@@ -295,39 +273,13 @@ const HOLIDAYS = {
   "2027-03-01": "삼일절",
 };
 
-// 오류 제보를 구글 폼으로 받으려면 채우기 (비워두면 '시연 모드'로 동작)
-const REPORT_FORM = { url: "", placeEntry: "", typeEntry: "", textEntry: "" };
+const SURVEY = { url: "", until: "" };
+const CONTACT_EMAIL = "";
 
-/* =========================================================
-   ② 데이터 — 건물과 공간
-   =========================================================
-   운영시간 쓰는 법
-   - "09:00-21:00"                          → 한 구간
-   - "중식 11:30-14:00 / 석식 17:30-19:00"   → 여러 구간 (앞에 이름 붙여도 돼)
-   - X  = 이용 불가 / U = 아직 모름 (화면에는 '–'로 표시)
-   - hrs(평일, 토, 일, 공휴일, { fri: "..." })  → 금요일만 다르면 fri 추가
-   - same(값) → 평일·토·일·공휴일 전부 같은 시간
-   - 시험기간은 ex(평일, 토, 일) / exSame(값) — 공휴일 칸 없음
-
-   항목 값 규칙
-   - noise : "silent"(정숙) / "light"(가벼운 대화) / "talk"(대화 가능)
-   - usage : "free"(자유) / "reserve"(예약) / "seat"(좌석 발권) / "ticket"(식권)
-   - food  : "meal"(음식 가능) / "snack"(음료·다과만) / "drink"(음료만) / "cafeteria"(외부 음식 금지)
-             "cafe"(음료 + 그 매장에서 산 음식만) / "none"(음식·음료 모두 불가) / "nofood"(음식물만 금지)
-   - na    : true → 소음·콘센트·음식 항목이 의미 없는 공간 (예: 보건실) — 상세에서 숨김
-   - seatDetail : 구역별 좌석 설명 목록 (상세 정보에 한 줄씩)
-   - 자정 넘김 : "05:00-01:00" 처럼 쓰면 다음 날 01:00까지로 계산
-   - outlet: true / false / U
-   - cat   : "meeting"(회의·그룹) / "study" / "rest" / "dining"(학식) / "cafe" / "health"
-   - 사진 : 아래 HAS_PHOTO에 공간 id만 적으면 images/건물폴더/공간id.jpg 를 자동으로 불러와
-            건물폴더 = GROUPS의 dir (없으면 건물 id). 예: sem1 → images/B/sem1.jpg
-            파일이 없으면 사진 칸이 알아서 사라져. 폴더·파일 이름은 대소문자까지 똑같이!
-*/
 const U = undefined, X = "closed";
 const H24 = "00:00-24:00";
 const hrs = (wd, sat, sun, hol, more) => ({ wd, sat, sun, hol, ...(more || {}) });
 const same = v => hrs(v, v, v, v);
-// 시험기간은 공휴일 칸이 없어 (2학기 시험기간엔 공휴일이 없음) → ex(평일, 토, 일, { fri })
 const ex = (wd, sat, sun, more) => ({ wd, sat, sun, ...(more || {}) });
 const exSame = v => ex(v, v, v);
 
@@ -347,7 +299,6 @@ const GROUPS = [
 ];
 
 const PLACES = [
-  /* ---------- 학생미래인재관 ---------- */
   { id: "sem1", group: "future", icon: "🤝", name: "세미나실", rooms: "진리 · 사랑 · 봉사",
     category: "회의실 · 그룹연구", cat: "meeting", floor: "1층", spot: "1층 편의점 건너편",
     entry: SEMINAR_ENTRY,
@@ -376,9 +327,9 @@ const PLACES = [
 
   { id: "dream", group: "future", icon: "📚", name: "드림 라운지",
     category: "스터디룸", cat: "study", floor: "1층", spot: "1층 Hall 1855 앞",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("09:00-21:00"), exam: exSame("06:00-23:00"), vacation: same("09:00-21:00") },
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "오픈 테이블",
     noise: "light", outlet: true, food: "snack", foodText: "음료 등 간단한 다과만 가능 (음식물 불가)",
     crowd: "13:00-16:00", rules: [],
@@ -386,9 +337,9 @@ const PLACES = [
 
   { id: "startup", group: "future", icon: "🔇", name: "스타트업 라운지",
     category: "스터디룸", cat: "study", floor: "2층", spot: "2층 부온프란조(식당) 건너편",
-    entry: "운영시간 내 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("09:00-21:00"), exam: exSame("06:00-23:00"), vacation: same("09:00-21:00") },
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "오픈 테이블",
     noise: "silent", outlet: true, food: "snack", foodText: "음료 등 간단한 다과만 가능 (음식물 불가)",
     equip: ["베드 있음"], crowd: "13:00-16:00", rules: [],
@@ -396,9 +347,9 @@ const PLACES = [
 
   { id: "rest2", group: "future", icon: "🛋️", name: "2층 휴게공간",
     category: "휴게공간", cat: "rest", floor: "2층", spot: "2층 복도 중간 (화장실 앞, 스타트업 라운지 옆)",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("09:00-21:00"), exam: exSame("06:00-23:00"), vacation: same("09:00-21:00") },
-    usage: "free", usageText: "자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "오픈 테이블",
     noise: "talk", outlet: false, food: "meal", foodText: "음식물 가능",
     rules: [],
@@ -406,9 +357,9 @@ const PLACES = [
 
   { id: "rest3", group: "future", icon: "🛋️", name: "3층 휴게공간",
     category: "휴게공간", cat: "rest", floor: "3층", spot: "3층 복도 중앙",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("09:00-21:00"), exam: exSame("06:00-23:00"), vacation: same("09:00-21:00") },
-    usage: "free", usageText: "자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "오픈 테이블",
     noise: "talk", outlet: false, food: "meal", foodText: "음식물 가능",
     rules: [],
@@ -416,9 +367,9 @@ const PLACES = [
 
   { id: "outdoor", group: "future", icon: "🌳", name: "야외 휴게공간",
     category: "휴게공간", cat: "rest", floor: "2층", spot: "2층 부온프란조 옆 (야외)",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("09:00-21:00"), exam: exSame("06:00-23:00"), vacation: same("09:00-21:00") },
-    usage: "free", usageText: "자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "오픈 테이블",
     noise: "talk", outlet: false, food: "meal", foodText: "음식물 가능",
     rules: [],
@@ -426,7 +377,7 @@ const PLACES = [
 
   { id: "bona", group: "future", icon: "🍽️", name: "카페보나",
     category: "식당", cat: "dining", floor: "1층", spot: "",
-    entry: "운영시간 내 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("중식 11:30-14:00", X, X, X), exam: ex("중식 11:30-14:00", X, X), vacation: same(X) },
     usage: "ticket", usageText: "식권 구매 후 이용", howto: "키오스크에서 식권 발급",
     seat: "오픈 테이블",
@@ -437,7 +388,7 @@ const PLACES = [
 
   { id: "buon", group: "future", icon: "🍽️", name: "부온프란조",
     category: "식당", cat: "dining", floor: "2층", spot: "",
-    entry: "운영시간 내 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs(MEAL3, X, X, X, { fri: MEAL2 }), exam: ex(MEAL3, X, X, { fri: MEAL2 }), vacation: hrs(MEAL2, X, X, X) },
     usage: "ticket", usageText: "식권 구매 후 이용", howto: "키오스크에서 식권 발급",
     seat: "오픈 테이블",
@@ -446,10 +397,9 @@ const PLACES = [
     rules: ["외부 음식 반입 금지", "금요일은 조식이 없어요", "방학 중에는 중식·석식만 운영해요"],
     source: "현장 확인 · 학교 홈페이지", checked: "2026.11.03" },
 
-  /* ---------- 중앙도서관 ---------- */
-  { id: "square", group: "lib", icon: "💻", name: "메인스퀘어",
+  { id: "square", group: "lib", skipUnk: ["food"], icon: "💻", name: "메인스퀘어",
     category: "라운지", cat: "study", floor: "2층", spot: "",
-    entry: "도서관에 들어가면 바로 이용 가능",
+    entry: "도서관 입장 시 학생증 태그 · 좌석 발권 후 이용",
     hours: { semester: same(H24), exam: exSame(H24), vacation: same(H24) },
     usage: "seat", usageText: "좌석 발권 필요", howto: "중앙도서관 앱 또는 2층 출입구 좌석배정시스템에서 발권",
     seat: "전면 배치형 좌석", seats: "60석",
@@ -459,9 +409,9 @@ const PLACES = [
 
   { id: "lobby", group: "lib", icon: "🛋️", name: "로비",
     category: "라운지", cat: "rest", floor: "2층", spot: "",
-    entry: "도서관 입장 시 태그",
+    entry: "도서관 입장 시 학생증 태그",
     hours: { semester: same(H24), exam: exSame(H24), vacation: same(H24) },
-    usage: "free", usageText: "좌석 발권 없이 이용 가능",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "창가형 · 개방형 · 계단형 좌석",
     noise: "light", outlet: true, outletText: "일부 자리에만 있어요",
     food: "drink", foodText: "음료 허용",
@@ -470,10 +420,10 @@ const PLACES = [
 
   { id: "jaryo1", group: "lib", icon: "📖", name: "제1자료실",
     category: "자료실 · 스터디룸", cat: "study", floor: "3층", spot: "",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("09:00-21:00", "09:00-13:00", X, X), exam: ex("09:00-21:00", "09:00-13:00", X),
              vacation: hrs("09:00-17:00", X, X, X) },
-    usage: "free", usageText: "발권 없이 자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "창가형 · 일렬형 좌석", seats: "79석",
     noise: "light", outlet: true, outletText: "좌석마다 있어요",
     food: "drink", foodText: "음료만 가능",
@@ -483,10 +433,10 @@ const PLACES = [
 
   { id: "jaryo2", group: "lib", icon: "📖", name: "제2자료실",
     category: "자료실 · 스터디룸", cat: "study", floor: "3층", spot: "",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("09:00-21:00", "09:00-13:00", X, X), exam: ex("09:00-21:00", "09:00-13:00", X),
              vacation: hrs("09:00-17:00", X, X, X) },
-    usage: "free", usageText: "발권 없이 자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "창가형 · 일렬형 좌석", seats: "약 73석 + 장애인석 2석",
     noise: "light", outlet: true, outletText: "좌석마다 있어요",
     food: "drink", foodText: "음료만 가능",
@@ -494,9 +444,9 @@ const PLACES = [
     rules: ["노트북 사용 시 소음 주의 — 키스킨·무소음 마우스 권장", "응용과학(600)·예술(700)·문학(800)·역사(900) 일반도서 비치 · 대출 가능"],
     source: "중앙도서관 앱 · 홈페이지", checked: "2026.10.29" },
 
-  { id: "free1", group: "lib", icon: "🔇", name: "제1자유열람실",
+  { id: "free1", group: "lib", skipUnk: ["food"], icon: "🔇", name: "제1자유열람실",
     category: "열람실", cat: "study", floor: "2층", spot: "",
-    entry: "좌석 발권 후 이용",
+    entry: "도서관 입장 시 학생증 태그 · 좌석 발권 후 이용",
     hours: { semester: same(H24), exam: exSame(H24), vacation: same(H24) },
     usage: "seat", usageText: "좌석 발권 필요", howto: "중앙도서관 앱 또는 2층 출입구 좌석배정시스템에서 발권",
     seat: "오픈형 열람석 · 창가석 등", seats: "290석",
@@ -504,9 +454,9 @@ const PLACES = [
     rules: ["대화 금지 (완전 정숙)", "발권하면 4시간 이용 · 최대 3회 연장 (종료 1시간 전부터)", "노트북 사용 시 소음 주의 — 키스킨·무소음 마우스 권장"],
     source: "중앙도서관 앱 · 홈페이지", checked: "2026.11.04" },
 
-  { id: "free2", group: "lib", icon: "🔇", name: "제2자유열람실",
+  { id: "free2", group: "lib", skipUnk: ["food"], icon: "🔇", name: "제2자유열람실",
     category: "열람실", cat: "study", floor: "4층", spot: "",
-    entry: "좌석 발권 후 이용",
+    entry: "도서관 입장 시 학생증 태그 · 좌석 발권 후 이용",
     hours: { semester: hrs("08:00-23:00", "08:00-23:00", U, "08:00-23:00"), exam: exSame(H24), vacation: same(X) },
     examLead: 14,
     usage: "seat", usageText: "좌석 발권 필요", howto: "중앙도서관 앱 또는 2층 출입구 좌석배정시스템에서 발권",
@@ -516,11 +466,11 @@ const PLACES = [
             "중간·기말 시험 2주 전부터 시험 마지막 날까지 24시간 개방", "방학 중에는 휴실해요", "노트북 사용 시 소음 주의"],
     source: "중앙도서관 앱 이용안내 · 도서관 층별 운영시간표", checked: "2026.11.04" },
 
-  { id: "media", group: "lib", icon: "🖥️", name: "미디어실",
+  { id: "media", group: "lib", skipUnk: ["food"], icon: "🖥️", name: "미디어실",
     category: "스터디룸", cat: "study", floor: "2층", spot: "",
     entry: "예약·발권 없이 누구나",
     hours: { semester: hrs(H24, U, U, U), exam: ex(H24, U, U), vacation: hrs(H24, U, U, U) },
-    usage: "free", usageText: "예약 수업이 없는 시간에 누구나 이용",
+    usage: "free", usageText: "예약이나 수업이 없는 시간엔 누구나 바로 이용",
     seat: "PC석", seats: "42석 (PC 42대)",
     noise: U, outlet: U, food: U,
     equip: ["PC 42대"],
@@ -542,9 +492,9 @@ const PLACES = [
 
   { id: "librest", group: "lib", icon: "🍙", name: "휴게실",
     category: "휴게공간", cat: "rest", floor: "2층", spot: "",
-    entry: "상시 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same(H24), exam: exSame(H24), vacation: same(H24) },
-    usage: "free", usageText: "자유 이용",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "테이블",
     noise: "light", outlet: U,
     food: "meal", foodText: "간단한 음식 가능 (배달음식·국물류 불가)",
@@ -554,7 +504,7 @@ const PLACES = [
 
   { id: "cafedream", group: "lib", icon: "☕", name: "카페드림",
     category: "카페", cat: "cafe", floor: "2층", spot: "",
-    entry: "운영시간 내 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("08:00-19:00", "09:00-15:00", X, X), exam: ex("08:00-21:00", "09:00-18:00", "09:00-18:00"),
              vacation: same(U) },
     usage: U,
@@ -564,13 +514,12 @@ const PLACES = [
     rules: ["일·공휴일 휴무", "큰 대화 자제"],
     source: "현장 확인", checked: "2026.10.29" },
 
-  /* ---------- 김수환관 ---------- */
   { id: "incara", group: "kim", icon: "🔇", name: "인문커뮤니티라운지",
     category: "라운지 · 스터디룸", cat: "study", floor: "1~2층", spot: "",
-    entry: "학생증(신분증) 태그 출입이 원칙이지만 평소엔 상시 개방돼요",
+    entry: "원칙은 학생증 태그 출입이지만, 운영시간 중엔 보통 문이 열려 있어요",
     hours: { semester: same("09:00-21:00"), exam: exSame(H24), vacation: same("09:00-21:00") },
     examLead: 14,
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "[1층] 1인석 12석 · 컴퓨터석 12석 / [2층] 1인석 24석 · 4인 오픈 테이블 10개",
     noise: "silent", outlet: true, outletText: "1인석·일반 공부석마다 2개, 4~6인 테이블마다 4~6개",
     food: "drink", foodText: "음료만 가능 (음식물 반입 금지)",
@@ -580,10 +529,10 @@ const PLACES = [
 
   { id: "incararest", group: "kim", icon: "🛏️", name: "인문커뮤니티라운지 휴게공간",
     category: "휴게공간", cat: "rest", floor: "2층", spot: "인문커뮤니티라운지 안",
-    entry: "학생증(신분증) 태그 출입이 원칙이지만 평소엔 상시 개방돼요",
+    entry: "원칙은 학생증 태그 출입이지만, 운영시간 중엔 보통 문이 열려 있어요",
     hours: { semester: same("09:00-21:00"), exam: exSame(H24), vacation: same("09:00-21:00") },
     examLead: 14,
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "1인용 침대", seats: "6석",
     noise: "silent", outlet: false, food: "drink", foodText: "음료만 가능 (음식물 반입 금지)",
     equip: ["베드 있음", "좌석 옆 테이블"],
@@ -592,9 +541,9 @@ const PLACES = [
 
   { id: "mensa", group: "kim", icon: "☕", name: "멘사",
     category: "자유 공간 · 휴게 · 스터디", cat: "rest", floor: "1층", spot: "",
-    entry: "상시 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("06:00-22:00"), exam: exSame("06:00-23:50"), vacation: same("06:00-22:00") },
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "1인 테이블 21개 · 4인 22개 · 6인 39개", seats: "총 234석",
     noise: "talk", outlet: true, outletText: "일부 좌석만 — 4인 테이블 8개(3~4구), 6인 테이블 32개(4~6구)",
     food: "meal", foodText: "음식 모두 가능 (식사 가능)",
@@ -603,12 +552,11 @@ const PLACES = [
             "이마트24 편의점: 평일 07:00~24:00 · 방학 중 07:00~23:30"],
     source: "현장 확인 · 인포 문의", checked: "2026.11.04" },
 
-  /* ---------- 안드레아관 ---------- */
   { id: "andrea", group: "andrea", icon: "🔇", name: "CUK 비교과 혁신 라운지",
     category: "라운지 · 스터디룸", cat: "study", floor: "지하 1층~2층", spot: "입구는 지하 1층",
-    entry: "상시 개방",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: same("05:00-01:00"), exam: exSame("05:00-01:00"), vacation: same("05:00-01:00") },
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "1인석 · 4인·다인용 테이블 · 소파",
     seatDetail: ["1층 메인 라운지 — 1인석 25석 (콘센트·스탠드 1개씩)",
                  "1층 1847 입구 앞 — 4인 테이블 2개 (테이블당 콘센트 5개, 스탠드)",
@@ -621,13 +569,12 @@ const PLACES = [
     rules: ["소음 금지 (안내문에 명시)", "좌석 사유화 금지", "기숙사운영팀이 관리하는 공간이에요"],
     source: "현장 조사 · 기숙사운영팀 공식 안내문", checked: "2026.11.04" },
 
-  /* ---------- 니콜스관 ---------- */
   { id: "harang", group: "nichols", icon: "☕", name: "사회혁신라운지 (카페 하랑)",
     category: "라운지 · 스터디룸 · 카페", cat: "study", floor: "4층", spot: "",
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("09:00-21:00", X, X, X), exam: exSame("06:00-23:00"), vacation: hrs("09:00-21:00", X, X, X) },
     examLead: 14,
-    usage: "free", usageText: "자유 이용 (예약·발권 없음)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용",
     seat: "6인 오픈 테이블 8개(48석) · 1인석 10개 · 휴게 의자 2석",
     noise: "talk", outlet: true, outletText: "대부분 — 6인 테이블당 4개, 1인 테이블당 1개",
     food: "cafe", foodText: "음료와 하랑에서 산 음식만 가능 (외부 음식 불가)",
@@ -635,12 +582,11 @@ const PLACES = [
     rules: ["외부 음식 반입 불가", "주말·공휴일 휴무", "중간·기말 시험 2주 전부터 시험 마지막 날까지 06:00~23:00", "문의: 02-2164-4682"],
     source: "현장 확인 · 카페 문의", checked: "2026.10.29" },
 
-  /* ---------- 밤비노관 ---------- */
   { id: "frest", group: "bambino", icon: "🛏️", name: "여자휴게실",
     category: "휴게실", cat: "rest", floor: "3층", spot: "BA308",
     entry: "학생증 태그",
     hours: { semester: same("07:00-22:00"), exam: exSame("07:00-22:00"), vacation: same("07:00-22:00") },
-    usage: "free", usageText: "자유 이용 (여학생만)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용 (여학생만)",
     seat: "베드",
     noise: "silent", outlet: true, outletText: "일부 베드에만 있어요",
     food: "none", foodText: "음식·음료 섭취 불가",
@@ -652,7 +598,7 @@ const PLACES = [
     category: "휴게실", cat: "rest", floor: "3층", spot: "BA307",
     entry: "학생증 태그",
     hours: { semester: same("07:00-22:00"), exam: exSame("07:00-22:00"), vacation: same("07:00-22:00") },
-    usage: "free", usageText: "자유 이용 (남학생만)",
+    usage: "free", usageText: "예약·발권 없이 바로 이용 (남학생만)",
     seat: "침대 1인석 등", seats: "총 5석",
     noise: "silent", outlet: true, outletText: "일부 자리에만 있어요",
     food: "none", foodText: "음식·음료 섭취 불가",
@@ -660,10 +606,9 @@ const PLACES = [
     rules: ["남학생만 이용 가능", "주말·공휴일엔 냉난방기가 안 돌아가요"],
     source: "현장 확인", checked: "2026.10.29" },
 
-  /* ---------- 비르투스관 ---------- */
   { id: "health", group: "virtus", icon: "🏥", name: "보건실",
     category: "보건실", cat: "health", floor: "1층", spot: "V104", na: true,
-    entry: "상시 개방 (운영시간 내)",
+    entry: "운영시간 중 자유 출입",
     hours: { semester: hrs("오전 08:30-12:00 / 오후 13:00-17:30", U, U, U),
              exam: ex("오전 08:30-12:00 / 오후 13:00-16:30", U, U),
              vacation: same(U) },
@@ -673,18 +618,14 @@ const PLACES = [
     source: "현장 확인 · 인포 문의", checked: "2026.10.29" },
 ];
 
-// 사진 있는 공간 id 목록 — 사진 추가하면 여기에 id만 추가
 const HAS_PHOTO = ["sem1", "sem2", "dream", "startup", "rest2", "rest3", "outdoor", "bona", "buon",
-                   "free1", "free2", "square", "media", "seminar", "incara", "incararest", "mensa",
+                   "free1", "free2", "square", "media", "seminar", "lobby", "jaryo1", "jaryo2", "librest", "cafedream", "incara", "incararest", "mensa",
                    "andrea", "harang", "frest", "mrest", "health"];
 PLACES.forEach(p => { if (!p.photo && HAS_PHOTO.includes(p.id)) p.photo = `images/${(GROUPS.find(g => g.id === p.group) || {}).dir || p.group}/${p.id}.jpg`; });
 
-/* =========================================================
-   ③ 시간 계산
-   ========================================================= */
 const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"], DAYK = ["일", "월", "화", "수", "목", "금", "토"];
-let simTime = null, modeSetting = "auto";   // '다른 시간'을 고르면 simTime·modeSetting이 바뀜
-let custom = null;                           // { mode, day, hour } — '다른 시간' 선택값
+let simTime = null, modeSetting = "auto";
+let custom = null;
 let tab = "all", selected = new Set(), expanded = new Set(), showPartial = false;
 
 const pad = x => String(x).padStart(2, "0");
@@ -696,14 +637,13 @@ const holidayOf = d => HOLIDAYS[ymd(d)];
 const fmtH = h => `${pad(Math.floor(h))}:${pad(Math.round((h % 1) * 60))}`;
 const fmtDur = m => m >= 60 ? `${Math.floor(m / 60)}시간${m % 60 ? " " + (m % 60) + "분" : ""}` : `${m}분`;
 
-// "중식 11:30-14:00 / 석식 17:30-19:00" → [{label, s, e}, ...]
 function parseSlots(v) {
   if (v === U || v === X) return v;
   return String(v).split("/").map(part => {
     const m = part.trim().match(/^(.*?)\s*(\d{1,2}):(\d{2})\s*[-~]\s*(\d{1,2}):(\d{2})$/);
-    if (!m) { console.warn("운영시간 형식을 확인해줘:", v); return null; }
+    if (!m) { console.warn("운영시간 형식 오류:", v); return null; }
     const s = +m[2] + +m[3] / 60; let e = +m[4] + +m[5] / 60;
-    if (e <= s) e += 24;   // 05:00-01:00 처럼 자정을 넘기면 다음 날 새벽까지
+    if (e <= s) e += 24;
     return { label: m[1].trim(), s, e };
   }).filter(Boolean);
 }
@@ -715,13 +655,11 @@ const is24 = h => Array.isArray(h) && h.length === 1 && h[0].s === 0 && h[0].e =
 const fmtEnd = e => e > 24 ? `다음 날 ${fmtH(e - 24)}` : fmtH(e);
 const slotText = s => is24([s]) ? "24시간" : `${fmtH(s.s)}~${fmtEnd(s.e)}`;
 
-// 사이트 전체 기준 모드 (시계에 표시되는 것)
 function modeFor(d) {
   if (modeSetting !== "auto") return modeSetting;
   const k = ymd(d), per = PERIODS.find(x => k >= x.from && k <= x.to);
   return per ? per.mode : DEFAULT_MODE;
 }
-// 공간별 모드 — examLead가 있으면 시험 N일 전부터 시험기간 시간을 적용
 function placeMode(p, d) {
   const m = modeFor(d);
   if (modeSetting !== "auto" || m !== "semester" || !p.examLead) return m;
@@ -755,7 +693,6 @@ function nextOpen(p, n) {
 function status(p, n) {
   const h = dayHours(p, n), cur = n.getHours() + n.getMinutes() / 60, hol = holidayOf(n);
   const mode = placeMode(p, n);
-  // 전날 영업이 자정을 넘겨 이어지는 중인지 먼저 확인
   const y = new Date(n); y.setDate(y.getDate() - 1);
   const yh = dayHours(p, y);
   const spill = Array.isArray(yh) && yh.find(s => s.e > 24 && cur + 24 < s.e);
@@ -786,7 +723,6 @@ function status(p, n) {
   }
   return { kind: "closed", open: false, rank: 2, label: "운영 종료", sub: custom ? dayText(p, n) : nextOpen(p, n) };
 }
-// '다른 시간' 모드에서 닫혀 있을 때: 그날 운영시간을 보여줌
 function dayText(p, n) {
   const h = dayHours(p, n);
   if (!Array.isArray(h)) return "이 날은 운영하지 않아요";
@@ -798,9 +734,6 @@ function crowdNow(p, n) {
   return cur >= c.s && cur < c.e;
 }
 
-/* =========================================================
-   ④ 필터 · 추천 프리셋
-   ========================================================= */
 const FILTERS = [
   { id: "silent", label: "정숙",            name: "정숙",         excl: "talk",   test: p => p.noise === U ? U : p.noise === "silent" },
   { id: "talk",   label: "대화 가능",        name: "대화 가능",    excl: "silent", test: p => p.noise === U ? U : p.noise !== "silent" },
@@ -811,25 +744,26 @@ const FILTERS = [
   { id: "snack",  label: "음료·간식 OK",      name: "음료·간식",    test: p => p.food === U ? U : ["meal", "snack", "drink", "cafe"].includes(p.food) },
   { id: "dining", label: "학식",             name: "학식",         test: p => p.cat === "dining" },
   { id: "late",   label: "밤 10시 이후까지", name: "밤 10시 이후", test: (p, n) => {
-      const h = dayHours(p, n); if (h === U) return U; if (h === X) return false; return h.some(s => s.e >= 22); } },
+      const h = dayHours(p, n); if (h === U) return U; if (h === X) return false; return h.some(s => s.e > 22); } },
 ];
 const OPEN_FILTER = { id: "open", label: "지금 이용 가능", name: "지금 이용 가능" };
+const HIDDEN_FILTERS = [
+  { id: "studyspot", name: "공부 공간", test: p => p.cat === "study" },
+  { id: "eat", name: "밥 먹을 수 있음", test: p => p.cat === "dining" || p.food === "meal" || p.food === "cafe" },
+];
 const FILTER_MAP = {};
-[...FILTERS, OPEN_FILTER].forEach(f => FILTER_MAP[f.id] = f);
+[...FILTERS, OPEN_FILTER, ...HIDDEN_FILTERS].forEach(f => FILTER_MAP[f.id] = f);
 
 const PRESETS = [
-  { id: "focus",  label: "혼자 집중",      tags: ["silent", "outlet"] },
+  { id: "focus",  label: "혼자 집중",      tags: ["studyspot", "silent", "outlet"] },
   { id: "team",   label: "팀플 회의",      tags: ["group"] },
-  { id: "lunch",  label: "밥 먹을 곳", tags: ["meal", "open"] },
+  { id: "lunch",  label: "밥 먹을 곳", tags: ["eat", "open"] },
   { id: "food",   label: "지금 학식",     tags: ["dining", "open"] },
   { id: "night",  label: "밤늦게까지",     tags: ["late", "open"] },
   { id: "quick",  label: "바로 앉기",      tags: ["free", "open"] },
 ];
-const REPORT_TYPES = ["운영시간", "출입·이용 방법", "좌석·시설", "소음·음식 규칙", "위치", "기타"];
 
-/* =========================================================
-   ⑤ 추천 (엄격 필터 + 조건 완화)
-   ========================================================= */
+const p_na = p => !!p.na;
 function evalPlace(p, n, i) {
   const st = status(p, n);
   const res = [...selected].map(id => {
@@ -842,20 +776,10 @@ function evalPlace(p, n, i) {
 const cmpMain = (a, b) => a.st.rank - b.st.rank || b.hit - a.hit || (b.st.left || 0) - (a.st.left || 0) || a.i - b.i;
 const cmpPartial = (a, b) => b.hit - a.hit || a.st.rank - b.st.rank || a.i - b.i;
 
-/* =========================================================
-   ⑥ 화면 그리기
-   ========================================================= */
 const NOISE_T = { silent: "정숙", light: "가벼운 대화", talk: "대화 가능" };
-const USAGE_T = { free: { t: "자유 이용" }, reserve: { t: "예약 필요", warn: 1 }, seat: { t: "좌석 발권", warn: 1 }, ticket: { t: "식권 구매" } };
 const FOOD_T = { meal: { t: "음식 OK" }, snack: { t: "음료·간식만" }, drink: { t: "음료만" }, cafeteria: { t: "외부 음식 금지", warn: 1 },
   cafe: { t: "음료·매장 음식만" }, none: { t: "음식·음료 금지", warn: 1 }, nofood: { t: "음식물 금지", warn: 1 } };
-const EQUIP_T = { "냉난방 기능 없음": { t: "🌡️ 냉난방 없음", warn: 1 }, "베드 있음": { t: "🛏️ 베드 있음" },
-  "검색 전용 PC": { t: "🖥️ 검색 전용 PC" }, "창가석": { t: "🪟 창가석" },
-  "공용 PC 12대 (1층)": { t: "🖥️ 공용 PC" }, "프린터 1대 (맨 앞 공용 PC 2대는 출력 전용)": { t: "🖨️ 프린터" },
-  "프린터": { t: "🖨️ 프린터" }, "PC 42대": { t: "🖥️ PC 42대" }, "공용 TV": { t: "📺 공용 TV" }, "전자레인지": { t: "🍲 전자레인지" } };
 
-// 카드에는 태그 3개만: 콘센트 · 음식 · 소음 (설문에서 제일 많이 불편했던 순서)
-// 좋은 정보 = 초록(good), 주의할 정보 = 주황(warn), 그 외 = 회색
 const FOOD_GOOD = ["meal"];
 function tagsOf(p) {
   const t = [];
@@ -873,7 +797,7 @@ function unknownsOf(p) {
   if (!p.na) {
     if (p.noise === U) list.push("소음 규칙");
     if (p.outlet === U) list.push("콘센트");
-    if (p.food === U) list.push("음식 반입");
+    if (p.food === U && !(p.skipUnk || []).includes("food")) list.push("음식 반입");
   }
   const dn = { wd: "평일", sat: "토", sun: "일", hol: "공휴일" };
   const parts = Object.entries(MODES).map(([m, name]) => {
@@ -885,10 +809,8 @@ function unknownsOf(p) {
   return list.concat(p.check || []);
 }
 
-/* ---------- 자세히 보기 ---------- */
-const hmode = {};   // 공간별로 '운영시간' 탭에서 고른 기간
+const hmode = {};
 
-// 같은 시간끼리 묶어서 "평일 09:00~19:50 / 토·일·공휴일 휴무" 형태로
 function hoursRows(p, mode) {
   const s = p.hours[mode], hasFri = "fri" in s;
   const days = [["wd", hasFri ? "월~목" : "평일"], ...(hasFri ? [["fri", "금"]] : []), ["sat", "토"], ["sun", "일"], ...("hol" in s ? [["hol", "공휴일"]] : [])];
@@ -916,7 +838,7 @@ function hoursBlock(p, n) {
   return `<div class="htabs">${tabs}</div><div class="hlist">${rows}</div>${lead}`;
 }
 
-const HOURS_RULE = /(휴무|휴실|운영하지|24시간 개방|06:00~23:00)/;   // 운영시간 칸과 겹치는 규칙은 빼기
+const HOURS_RULE = /(휴무|휴실|운영하지|24시간 개방|06:00~23:00)/;
 function noteItems(p) {
   const items = [];
   const seat = [p.seat, p.seats, p.capacity].filter(Boolean).join(" · ");
@@ -946,18 +868,17 @@ function detailHTML(p, n) {
   const notes = noteItems(p), unk = unknownsOf(p);
   return `<div class="detail">
     <section class="dsec"><h4>운영시간</h4>${hoursBlock(p, n)}</section>
-    <section class="dsec"><h4>이용 방법</h4>
+    <section class="dsec box"><h4>이용 방법</h4>
       <dl class="kv">${use.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></section>
-    ${notes.length ? `<section class="dsec"><h4>알아둘 것</h4><ul class="notes">${notes.map(x =>
+    ${notes.length ? `<section class="dsec box"><h4>알아둘 것</h4><ul class="notes">${notes.map(x =>
       `<li${x.warn ? ' class="warn"' : ""}>${x.t}${x.sub ? `<ul>${x.sub.map(y => `<li>${y}</li>`).join("")}</ul>` : ""}</li>`).join("")}</ul></section>` : ""}
     ${unk.length ? `<div class="unk-line">아직 확인 안 된 정보: ${unk.join(" · ")}</div>` : ""}
-    <div class="dfoot"><span>${p.source} · ${p.checked} 확인</span><button class="report" data-report="${p.id}">오류 제보</button></div>
+    <div class="dfoot"><span>${p.source} · ${p.checked} 확인</span><span class="fix-hint">다르면 ${CONTACT_EMAIL ? "댓글·메일" : "에타 댓글"}로 알려주세요</span></div>
   </div>`;
 }
 
 function cardHTML(e, n) {
   const { p, st } = e, g = GROUPS.find(x => x.id === p.group);
-  // 이름 옆 작은 글씨: (건물) · 층 · 종류 · 예약/발권이 필요하면 주황으로
   const need = { reserve: "예약 필요", seat: "좌석 발권", ticket: "식권 구매" }[p.usage];
   const loc = [selected.size ? g.name : "", p.floor, p.category].filter(Boolean).join(" · ") + (need ? ` · <b>${need}</b>` : "");
   const match = e.res.length ? `<div class="match"><span class="m score">${e.hit}/${e.res.length}</span>${
@@ -987,14 +908,14 @@ function renderWhen(n) {
     : `${n.getMonth() + 1}/${n.getDate()}(${DAYK[n.getDay()]}) ${pad(n.getHours())}:${pad(n.getMinutes())} · <span>${MODES[modeFor(n)]}${hol ? " · " + hol : ""}</span>`;
   document.querySelectorAll("#whenSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.when === (custom ? "custom" : "now")));
   document.getElementById("pick").hidden = !custom;
-  document.querySelector('#pDay option[value="hol"]').disabled = !!custom && custom.mode === "exam";   // 시험기간엔 공휴일 칸이 없음
+  document.querySelector('#pDay option[value="hol"]').disabled = !!custom && custom.mode === "exam";
 }
 
 function renderGroups(n) {
   const g = GROUPS.find(x => x.id === tab);
   document.getElementById("groups").innerHTML = g
     ? `<span><b>${g.name}</b>만 보는 중 · ${PLACES.filter(p => p.group === g.id).length}곳</span><button class="allbtn" data-g="all">전체 보기 ✕</button>`
-    : `<span>👆 건물을 누르면 그 건물 공간만 보여요</span>`;
+    : `<span>👆 위 건물을 눌러보세요! 그 건물 공간만 보여줄게요</span>`;
 }
 
 function isPreset(pr) { return pr.tags.length === selected.size && pr.tags.every(t => selected.has(t)); }
@@ -1002,12 +923,19 @@ function renderChips() {
   document.getElementById("presets").innerHTML = PRESETS.map(pr =>
     `<button class="chip preset" data-p="${pr.id}" aria-pressed="${isPreset(pr)}">${pr.label}</button>`).join("");
   const chip = (f, cls) => `<button class="chip ${cls || ""}" data-f="${f.id}" aria-pressed="${selected.has(f.id)}">${f.label}</button>`;
-  document.getElementById("filters").innerHTML = chip(OPEN_FILTER, "open-t") + FILTERS.map(f => chip(f)).join("");
+  const FILTER_GROUPS = [
+    ["운영·이용", ["open", "free", "late"]],
+    ["공간 환경", ["silent", "talk", "outlet", "group"]],
+    ["음식·음료", ["meal", "snack", "dining"]],
+  ];
+  document.getElementById("filters").innerHTML = FILTER_GROUPS.map(([title, ids]) =>
+    `<div class="fgroup"><div class="fgroup-h">${title}</div><div class="chips">${
+      ids.map(id => chip(FILTER_MAP[id], id === "open" ? "open-t" : "")).join("")}</div></div>`).join("");
   document.getElementById("resetFilters").hidden = !selected.size;
 }
 
 function renderList(n) {
-  const pool = PLACES.map((p, i) => evalPlace(p, n, i)).filter(e => tab === "all" || e.p.group === tab);
+  const pool = PLACES.map((p, i) => evalPlace(p, n, i)).filter(e => (tab === "all" || e.p.group === tab) && !(selected.size && p_na(e.p)));
   const scope = tab === "all" ? "전체" : GROUPS.find(g => g.id === tab).name;
   const card = e => cardHTML(e, n);
   let h = "";
@@ -1038,12 +966,6 @@ function renderList(n) {
   document.getElementById("list").innerHTML = h;
 }
 
-/* ---------- 양 안내 줄 ----------
-   상황에 따라 양 그림과 문구가 바뀜 (images/sheep/*.svg)
-   - 열린 곳이 없음 → 자는 양
-   - 밥 시간(11~14시, 17~19시) → 숟가락 양 · 누르면 '밥 먹을 곳'
-   - 저녁 이후 1시간 안에 닫는 곳 있음 → 시계 양
-   - 그 외 → 헤드폰 양 · 누르면 '혼자 집중' */
 const SHEEP = k => `images/sheep/${k}.svg`;
 let helloPreset = null;
 function renderHello(n) {
@@ -1055,13 +977,13 @@ function renderHello(n) {
   if (!open.length) {
     k = "sleep"; title = custom ? "이 시간엔 다 자는 중…" : "지금은 다 자는 중…"; sub = "열려 있는 공간이 없어요. '다른 시간'으로 바꿔보세요";
   } else if ((h >= 11 && h < 14) || (h >= 17 && h < 19)) {
-    const c = open.filter(x => x.p.food === "meal").length;
+    const c = open.filter(x => FILTER_MAP.eat.test(x.p)).length;
     k = "meal"; title = `밥 시간! ${when} 밥 먹을 수 있는 곳 ${c}곳`; sub = "눌러서 보기 →"; preset = "lunch";
   } else if (h >= 18 && open.some(x => x.st.left <= 60)) {
     const c = open.filter(x => x.st.left <= 60).length;
     k = "soon"; title = `1시간 안에 닫는 곳이 ${c}곳 있어요`; sub = "밤늦게까지 여는 곳 보기 →"; preset = "night";
   } else {
-    const c = open.filter(x => x.p.noise === "silent").length;
+    const c = open.filter(x => x.p.noise === "silent" && x.p.cat === "study").length;
     k = "quiet"; title = `${when} 조용히 공부할 수 있는 곳 ${c}곳`; sub = "눌러서 보기 →"; preset = "focus";
   }
   helloPreset = preset;
@@ -1073,24 +995,26 @@ function renderHello(n) {
   return k;
 }
 
-/* ---------- 미니 캠퍼스 무대 ----------
-   정문에서 올라가는 순서로 건물을 세움 (색은 학교 캠퍼스맵 색)
-   - 하늘: 낮 / 노을(17~19:30) / 밤
-   - 창문: 그 건물에서 지금 열린 공간 비율만큼 불이 켜짐
-   - 건물 누르면 그 건물 탭으로, 양이 그 건물 앞으로 걸어감 */
 const SKYLINE = [
-  { g: "kim",     label: "김수환",   c: "#e39a4f", h: 40 },
-  { g: "andrea",  label: "안드레아", c: "#d6587d", h: 34 },
-  { g: "nichols", label: "니콜스",   c: "#d6587d", h: 46 },
-  { g: "bambino", label: "밤비노",   c: "#7c3f74", h: 28 },
-  { g: "virtus",  label: "비르투스", c: "#d6587d", h: 32 },
-  { g: "future",  label: "미래인재", c: "#8b5aa9", h: 42 },
-  { g: "lib",     label: "도서관",   c: "#5fae9e", h: 50 },
+  { g: "kim",     label: "김수환",   c: "#e39a4f", h: 48 },
+  { g: "andrea",  label: "안드레아", c: "#ee8a76", h: 40, roof: "gable" },
+  { g: "nichols", label: "니콜스",   c: "#d14f7a", h: 56, roof: "sign" },
+  { g: "bambino", label: "밤비노",   c: "#7c3f74", h: 34 },
+  { g: "virtus",  label: "비르투스", c: "#efa3ba", h: 40, roof: "cross" },
+  { g: "future",  label: "미래인재", c: "#8b5aa9", h: 50 },
+  { g: "lib",     label: "도서관",   c: "#5fae9e", h: 60 },
 ];
 const GROUND = 124;
+function roofOf(b, x, top) {
+  if (b.roof === "gable") return `<path d="M${x - 2},${top + 1} L${x + b.w / 2},${top - 11} L${x + b.w + 2},${top + 1} Z" fill="#c9675a" stroke="rgba(0,0,0,.12)"/>`;
+  if (b.roof === "sign") return `<rect x="${x + 10}" y="${top - 7}" width="${b.w - 20}" height="7" rx="1.5" fill="#8f2f55"/>`;
+  if (b.roof === "cross") return `<circle cx="${x + b.w / 2}" cy="${top - 7}" r="6.5" fill="#fff" stroke="rgba(0,0,0,.12)"/>`
+    + `<path d="M${x + b.w / 2 - 3.5},${top - 7} h7 M${x + b.w / 2},${top - 10.5} v7" stroke="#e0454f" stroke-width="2.4"/>`;
+  return "";
+}
 function buildStage() {
   let x = 4, out = "";
-  const W = 46, GAP = 5;   // 건물 폭을 똑같이 → 손가락으로 누르기 편하게
+  const W = 46, GAP = 5;
   [[22, 18], [70, 30], [118, 12], [160, 26], [214, 16], [262, 34], [300, 10], [340, 22]].forEach(([sx, sy]) =>
     out += `<circle class="star" cx="${sx}" cy="${sy}" r="1.2"/>`);
   out += `<circle class="sun" cx="338" cy="22" r="10"/>`;
@@ -1106,11 +1030,16 @@ function buildStage() {
     const name = (GROUPS.find(gr => gr.id === b.g) || {}).name || b.label;
     out += `<g class="bld" data-g="${b.g}" id="bld-${b.g}" role="button" tabindex="0" aria-label="${name}만 보기">
       <rect class="hit" x="${x - GAP / 2}" y="40" width="${b.w + GAP}" height="${152 - 40}" fill="transparent"/>
-      <rect class="body" x="${x}" y="${top}" width="${b.w}" height="${b.h}" rx="2" fill="${b.c}"/>${wins}
+      <rect class="body" x="${x}" y="${top}" width="${b.w}" height="${b.h}" rx="2" fill="${b.c}"/>${roofOf(b, x, top)}${wins}
       <text class="lbl" x="${b.cx}" y="${GROUND + 17}">${b.label}</text></g>`;
     x += b.w + GAP;
   });
   [[2, 9], [356, 10], [97, 7], [250, 6]].forEach(([tx, r]) => out += `<circle class="tree" cx="${tx}" cy="${GROUND - r + 3}" r="${r}"/>`);
+  const lb = SKYLINE[SKYLINE.length - 1];
+  out += `<g id="tapHint" transform="translate(${lb.cx - 16},${GROUND - lb.h - 13})"><g class="bob">
+    <rect x="-42" y="-11" width="76" height="17" rx="8.5" fill="#fff" stroke="rgba(0,0,0,.08)"/>
+    <text x="-4" y="1.5" text-anchor="middle" class="hint-t">건물을 눌러보세요</text>
+    <path d="M16,6 l-4,5 h8 z" fill="#fff"/></g></g>`;
   out += `<g id="sheepG" style="transform:translateX(180px)"><image id="sheepImg" href="images/sheep/plain.svg" x="-24" y="${GROUND - 43}" width="48" height="46"/></g>`;
   document.getElementById("stageSvg").innerHTML = out;
 }
@@ -1128,63 +1057,33 @@ function renderStage(n, k) {
     g.classList.toggle("on", tab === b.g);
     g.querySelectorAll(".win").forEach(w => w.classList.toggle("lit", (+w.dataset.i * 7) % b.nWin < lit));
   });
-  // 양: 고른 건물 앞으로 (전체면 가운데)
   const target = (SKYLINE.find(b => b.g === tab) || { cx: 180 }).cx;
   const sg = document.getElementById("sheepG");
   if (sheepAt !== null && sheepAt !== target) { sg.classList.remove("hop"); void sg.getBBox(); sg.classList.add("hop"); }
   sheepAt = target;
+  document.getElementById("tapHint").style.display = tab === "all" ? "" : "none";
   sg.style.transform = `translateX(${target}px)`;
   document.getElementById("sheepImg").setAttribute("href", SHEEP(k));
 }
 
 function render() { const n = now(); renderWhen(n); renderStage(n, renderHello(n)); renderGroups(n); renderChips(); renderList(n); }
 
-/* =========================================================
-   ⑦ 오류 제보
-   ========================================================= */
-let reportPlace = null, reportType = null;
-function openReport(id) {
-  reportPlace = PLACES.find(p => p.id === id); reportType = null;
-  document.getElementById("mPlace").textContent = `${GROUPS.find(g => g.id === reportPlace.group).name} · ${reportPlace.name}`;
-  document.getElementById("mText").value = "";
-  renderReportTypes();
-  document.getElementById("modalBg").hidden = false;
-}
-function renderReportTypes() {
-  document.getElementById("mTypes").innerHTML = REPORT_TYPES.map(t =>
-    `<button class="chip" data-rt="${t}" aria-pressed="${reportType === t}">${t}</button>`).join("");
-}
-function closeReport() { document.getElementById("modalBg").hidden = true; }
-function submitReport() {
-  const text = document.getElementById("mText").value.trim();
-  if (!reportType && !text) { toast("어떤 정보가 다른지 골라주거나 내용을 적어주세요"); return; }
-  const item = { place: reportPlace.name, type: reportType || "기타", text, at: new Date().toISOString() };
-  if (REPORT_FORM.url) {
-    const q = new URLSearchParams({ usp: "pp_url" });
-    if (REPORT_FORM.placeEntry) q.set(REPORT_FORM.placeEntry, item.place);
-    if (REPORT_FORM.typeEntry) q.set(REPORT_FORM.typeEntry, item.type);
-    if (REPORT_FORM.textEntry) q.set(REPORT_FORM.textEntry, item.text);
-    window.open(`${REPORT_FORM.url}?${q}`, "_blank");
-    toast("제보 양식이 열렸어요. 마지막에 '제출'까지 눌러주세요!");
-  } else {
-    try { const arr = JSON.parse(localStorage.getItem("gd_reports") || "[]"); arr.push(item); localStorage.setItem("gd_reports", JSON.stringify(arr)); } catch (e) {}
-    toast("제보 고마워요! (시연 모드라 아직 실제로 전송되지는 않아요)");
+function initSurvey() {
+  if (/^https:\/\//.test(SURVEY.url)) {
+    const sub = ["1분이면 끝나요", SURVEY.until && `${SURVEY.until}까지`].filter(Boolean).join(" · ");
+    document.querySelectorAll(".sSub").forEach(x => x.textContent = sub);
+    document.querySelectorAll("[data-survey]").forEach(a => a.href = SURVEY.url);
+    document.getElementById("surveyTop").hidden = false;
+    document.getElementById("surveyBox").hidden = false;
   }
-  closeReport();
-}
-let toastTimer;
-function toast(msg) {
-  const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show");
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+  if (CONTACT_EMAIL) document.getElementById("fReport").innerHTML =
+    `저희 팀이 직접 조사한 정보라 실제와 다를 수 있어요. 다르면 <b>에타 게시글 댓글</b>이나 메일(<b>${CONTACT_EMAIL}</b>)로 알려주세요. 확인해서 바로 고칠게요!`;
 }
 
-/* =========================================================
-   ⑧ 클릭 이벤트
-   ========================================================= */
-const toLocalInput = d => `${ymd(d)}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 document.addEventListener("click", e => {
   const el = sel => e.target.closest(sel);
   let b;
+  if (el("[data-survey]")) return;
   if ((b = el("[data-when]"))) {
     if (b.dataset.when === "now") { custom = null; simTime = null; modeSetting = "auto"; }
     else if (!custom) { const n = new Date(); custom = { mode: modeFor(n), day: "wd", hour: Math.max(9, Math.min(22, n.getHours())) }; applyCustom(); }
@@ -1214,12 +1113,7 @@ document.addEventListener("click", e => {
   }
   if ((b = el("[data-hmode]"))) { const [id, m] = b.dataset.hmode.split(":"); hmode[id] = m; render(); return; }
   if ((b = el("[data-more]"))) { const id = b.dataset.more; expanded.has(id) ? expanded.delete(id) : expanded.add(id); render(); return; }
-  if ((b = el("[data-report]"))) { openReport(b.dataset.report); return; }
-  if ((b = el("[data-rt]"))) { reportType = reportType === b.dataset.rt ? null : b.dataset.rt; renderReportTypes(); return; }
-  if (el("[data-close]") || e.target.id === "modalBg") { closeReport(); return; }
-  if (el("#mSubmit")) { submitReport(); return; }
 });
-// '다른 시간' — 고른 기간·요일에 해당하는 날짜 하나로 계산
 const SAMPLE_DAY = { wd: "2026-11-11", sat: "2026-11-14", sun: "2026-11-15", hol: "2026-12-25" };
 function applyCustom() {
   if (custom.mode === "exam" && custom.day === "hol") custom.day = "sun";
@@ -1235,8 +1129,8 @@ document.getElementById("pHour").innerHTML = Array.from({ length: 24 }, (_, h) =
   applyCustom(); render();
 }));
 buildStage();
+initSurvey();
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeReport();
   const g = e.target.closest && e.target.closest(".bld");
   if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); g.dispatchEvent(new MouseEvent("click", { bubbles: true })); }
 });
